@@ -1,0 +1,1 @@
+Ubuntu 18.04.4 LTS 64-bit; RAM 16GB; GeForce GTX 1050 Ti Mobile; Intel Core i7-7700HQ @ 2.80Ghz * 8; Docker version 19.03.7

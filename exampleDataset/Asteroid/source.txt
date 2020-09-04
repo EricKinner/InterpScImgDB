@@ -1,0 +1,11 @@
+@techreport{Patchett_2017_Asteroid,
+	title 		= {{Deep Water Impact Ensemble Data Set}},
+	author 		= {John Patchett and Galen Gisler},
+	url 		= {https://datascience.dsscale.org/wp-content/uploads/2017/03/DeepWaterImpactEnsembleDataSet.pdf},
+	year 		= {2017},
+	date 		= {2017-02-14},
+	note 		= {LA-UR-17-21595},
+	keywords 	= {asteroid, ensemble data set, In situ analysis, ParaView},
+	pubstate 	= {published},
+	tppubtype 	= {techreport}
+}
