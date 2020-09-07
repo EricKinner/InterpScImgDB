@@ -33,7 +33,7 @@ RUN cd /home/ && tar xzf /home/Workspace.tar.gz && rm Workspace.tar.gz
 # Install project
 RUN cd /home/Workspace/install/my_package && ./build.sh
 RUN cd /home/Workspace/install/PWCNet/correlation_package_pytorch1_0 && ./build.sh
-RUN mkdir /home/Workspace/install/model_weights && cd /home/Workspace/install/model_weights && wget http://vllab1.ucmerced.edu/~wenbobao/DAIN/best.pth
+RUN cd /home/Workspace/install/model_weights && wget http://vllab1.ucmerced.edu/~wenbobao/DAIN/best.pth
 
 RUN python3 -m pip install scipy==1.0.0 pillow
 
