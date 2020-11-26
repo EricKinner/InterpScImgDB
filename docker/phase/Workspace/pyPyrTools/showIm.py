@@ -2,7 +2,7 @@ import numpy
 from PIL import ImageTk
 import PIL
 import scipy.stats
-import Tkinter
+import tkinter
 import math
 from .round import round
 

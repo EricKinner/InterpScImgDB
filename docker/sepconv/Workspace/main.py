@@ -9,6 +9,8 @@ from utils import *
 
 parser = argparse.ArgumentParser(description='Main Interface')
 parser.add_argument('--skip', help='number of images skipped', default=1, required=False)
+parser.add_argument('--noErr', help='skip error metric computation', default=False, required=False, action='store_true')
+parser.add_argument('--noDiff', help='skip difference image computation', default=False, required=False, action='store_true')
 args = parser.parse_args()
 
 DATA_ROOT_PATH 		= "/home/Workspace/data/"
@@ -116,23 +118,29 @@ if __name__ == "__main__":
 	# Compute Error
 	
 	if(SKIP_NUM != 0):
-			
-		print("Calculating Errors ...")
 		
-		os.makedirs(diffPath)
-		error_data = []
-		error_data = computeError(origPath, outPath, diffPath, error_data)
+		if(not args.noDiff):
+			print("Calculating Diff Imgs ...")
+			computeDiffImgs(origPath, outPath, diffPath)
+			
+		if(not args.noErr):
+			print("Calculating Errors ...")
+			
+			error_data = []
+			error_data = computeErrorMetrics(origPath, outPath, error_data)
 	
-		error_data_file = open(os.path.join(DATA_ROOT_PATH, ERROR_FILENAME), "w")
-		error_data_file.write("Index, MSE, SSIM, MS_SSIM, PSNR, VIFP, UQI\n")
+			# Write err to file
+	
+			error_data_file = open(os.path.join(DATA_ROOT_PATH, ERROR_FILENAME), "w")
+			error_data_file.write("Index, MSE, SSIM, MS_SSIM, PSNR, VIFP, UQI\n")
 		
-		counter = 0
-		while(counter < len(error_data)):
-			error_data_file.write(str(error_data[counter+0]) + "," + str(error_data[counter+1]) + "," + str(error_data[counter+2]) + "," + str(error_data[counter+3]) + "," + str(error_data[counter+4]) + "," + str(error_data[counter+5]) + "," + str(error_data[counter+6]) + "\n")
+			counter = 0
+			while(counter < len(error_data)):
+				error_data_file.write(str(error_data[counter+0]) + "," + str(error_data[counter+1]) + "," + str(error_data[counter+2]) + "," + str(error_data[counter+3]) + "," + str(error_data[counter+4]) + "," + str(error_data[counter+5]) + "," + str(error_data[counter+6]) + "\n")
 			
-			counter = counter + 7;
+				counter = counter + 7;
 		
-		error_data_file.close()
+			error_data_file.close()
 		
 	print("Done.")
 	

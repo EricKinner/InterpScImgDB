@@ -1,4 +1,4 @@
-from PIL import ImageTk,Image
+from PIL import Image
 import shutil
 import time
 import sys 
@@ -19,7 +19,7 @@ def numToStr4Digits(number):
 
 	return str(counter)
 
-def runInterpolation(install_path, imgPath1, imgPath2, outPath, n_frames):
+def runInterpolation(imgPath1, imgPath2, outPath, n_frames):
 	
 	fractions = int(float(100) / float(n_frames+1))
 	
@@ -32,7 +32,7 @@ def runInterpolation(install_path, imgPath1, imgPath2, outPath, n_frames):
 		else:
 			shutil.copyfile(imgPath2, outFilePath)
 
-def interpolate(input_path, output_path, meta_data, install_path, n_frames):
+def interpolate(input_path, output_path, meta_data, n_frames):
 	
 	fileList = os.listdir(input_path)
 	
@@ -63,7 +63,7 @@ def interpolate(input_path, output_path, meta_data, install_path, n_frames):
 	
 		start = time.time()
 		
-		runInterpolation(install_path, os.path.join(input_path, lastFrame), os.path.join(input_path, imgName), out_imgPath, n_frames)
+		runInterpolation(os.path.join(input_path, lastFrame), os.path.join(input_path, imgName), out_imgPath, n_frames)
 		
 		end = time.time()
 		totalTime += end - start

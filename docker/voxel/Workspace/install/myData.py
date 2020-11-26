@@ -2,7 +2,7 @@ import os
 import numpy as np
 import cv2
 import torch
-from PIL import ImageTk,Image
+from PIL import Image
 from torch.utils.data import Dataset
 from core.utils import transforms as tf
 from shutil import copyfile

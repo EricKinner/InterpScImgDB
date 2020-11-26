@@ -8,7 +8,7 @@ import os
 
 from utils import *
 
-def computeError(gt_path, test_path, diff_path, error_data):
+def computeDiffImgs(gt_path, test_path, diff_path):
 	
 	gt_fileList = os.listdir(gt_path)
 	gt_fileList = sorted(gt_fileList)
@@ -19,13 +19,11 @@ def computeError(gt_path, test_path, diff_path, error_data):
 	test_fileListLen = len(test_fileList)
 	
 	fileListLen = min(test_fileListLen, gt_fileListLen)
-
+	
 	if not os.path.exists(diff_path):
 		os.makedirs(diff_path)
-	
-	for i in range(fileListLen):
 		
-		sys.stdout.write("\rProgress [" + str(int((float(i) / float(fileListLen)) * 100)) + "%]")
+	for i in range(fileListLen):
 		
 		gt_imgPath = os.path.join(gt_path, gt_fileList[i])
 		img = Image.open(gt_imgPath)
@@ -46,6 +44,30 @@ def computeError(gt_path, test_path, diff_path, error_data):
 	
 		diffImg = ImageChops.difference(gt_img, test_img)
 		diffImg.save(diffFileNamePath)
+
+def computeErrorMetrics(gt_path, test_path, error_data):
+	
+	gt_fileList = os.listdir(gt_path)
+	gt_fileList = sorted(gt_fileList)
+	gt_fileListLen = len(gt_fileList)
+	
+	test_fileList = os.listdir(test_path)
+	test_fileList = sorted(test_fileList)
+	test_fileListLen = len(test_fileList)
+	
+	fileListLen = min(test_fileListLen, gt_fileListLen)
+	
+	for i in range(fileListLen):
+		
+		gt_imgPath = os.path.join(gt_path, gt_fileList[i])
+		img = Image.open(gt_imgPath)
+		gt_img = img.copy()
+		img.close()
+		
+		test_imgPath = os.path.join(test_path, test_fileList[i])
+		img = Image.open(test_imgPath)
+		test_img = img.copy()
+		img.close()
 		
 		#---------------
 		

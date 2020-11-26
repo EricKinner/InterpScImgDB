@@ -1,4 +1,4 @@
-from PIL import ImageTk,Image
+from PIL import Image
 import shutil
 import time
 import sys 
@@ -21,7 +21,7 @@ def numToStr4Digits(number):
 
 def runInterpolation(install_path, imgPath1, imgPath2, outPath, n_frames):
 	
-	command = "python2.7 " + os.path.join(install_path, "demo.py") + " '" +  imgPath1 + "' '" + imgPath2 + "' --dev gpu --n_frames " + str(n_frames) + " --save 1 --show 0 --save_path '" + outPath + "' 2> /dev/null"
+	command = "python3 " + os.path.join(install_path, "demo.py") + " '" +  imgPath1 + "' '" + imgPath2 + "' --dev gpu --n_frames " + str(n_frames) + " --save 1 --show 0 --save_path '" + outPath + "'"
 	os.system(command)
 
 def interpolate(input_path, output_path, meta_data, install_path, n_frames):

@@ -1,7 +1,9 @@
 import numpy as np
 from scipy import misc
+import imageio
 import argparse
 import time
+from PIL import Image
 from matplotlib import pyplot as plt
 
 from frame_interp import interpolate_frame
@@ -48,14 +50,14 @@ if __name__ == '__main__':
 	else:
 		raise NotImplementedError('Unknown choice of device.')
 
-	img1 = misc.imread(args.img1)
-	img2 = misc.imread(args.img2)
+	img1 = imageio.imread(args.img1)
+	img2 = imageio.imread(args.img2)
 	
 	resolution = img1.shape
 	
 	if(resolution[0] * resolution[1] > 512 * 512):
-		img1 = misc.imresize(img1, (512, 512))
-		img2 = misc.imresize(img2, (512, 512))
+		img1 = np.array(Image.fromarray(img1).resize((512, 512)))
+		img2 = np.array(Image.fromarray(img2).resize((512, 512)))
 
 	start = time.time()
 	new_frames = interpolate_frame(img1, img2, n_frames=args.n_frames, scale=.5**.25, xp=xp)
@@ -67,9 +69,9 @@ if __name__ == '__main__':
 		fractions = int(float(100) / float(args.n_frames+1))
 		
 		for i in range(args.n_frames):
-			new_frames[i] = misc.imresize(new_frames[i], resolution)
-			fileName = getFilenameWithoutExtension(getFilenameFromPath(args.save_path)) + "-" + str(fractions * (i+1)) + ".jpg"
-			misc.imsave(os.path.join(getDirectoryFromPath(args.save_path), fileName), new_frames[i])
+			new_frames[i] = np.array(Image.fromarray((255 * new_frames[i]).astype(np.uint8)).resize((resolution[1], resolution[0])))
+			fileName = getFilenameWithoutExtension(getFilenameFromPath(args.save_path)) + "-" + str(fractions * (i+1)) + ".png"
+			imageio.imsave(os.path.join(getDirectoryFromPath(args.save_path), fileName), new_frames[i])
 
 	if args.show:
 		plt.figure(0)

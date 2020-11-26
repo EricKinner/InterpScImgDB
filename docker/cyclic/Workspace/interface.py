@@ -1,4 +1,4 @@
-from PIL import ImageTk,Image
+from PIL import Image
 import shutil
 import time
 import sys 
